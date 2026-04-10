@@ -1,67 +1,69 @@
-# Relatório da NOME DA ATIVIDADE
-
-**Disciplina:** 
-**Aluno(s):**
-**Turma:**
-**Professor:**
-**Data:**
+# Relatório da Relatório da atividade 5
+**Disciplina: Programação Concorrente e Distribuída**
+**Aluno(s): Naylanne Lissa Gomes Cunha**
+**Turma: SIN04M1**
+**Professor: Rafael Marconi Ramos**
+**Data: 10/04/2026**
 
 ---
 
 # 1. Descrição do Problema
 
-Descreva o problema computacional resolvido pelo programa.
+Foi implementado um programa para avaliação/processamento de dados (arquivos) utilizando paralelismo com MPI, onde múltiplos processos trabalham simultaneamente para reduzir o tempo de execução.
 
 ## Orientações para preenchimento
 
 Explique:
 
-* Qual problema foi implementado
-* Qual algoritmo foi utilizado
-* Qual o tamanho da entrada utilizada nos testes
-* Qual o objetivo da paralelização
+Foi utilizado um algoritmo de divisão de trabalho (data parallelism), onde:
 
-**Questões que devem ser respondidas:**
+Os dados são divididos entre os processos
+Cada processo executa a mesma tarefa sobre uma parte dos dados. Os resultados são combinados ao final.
 
-* Qual é o objetivo do programa?
-* Qual o volume de dados processado?
-* Qual algoritmo foi utilizado?
-* Qual a complexidade aproximada do algoritmo?
+Esse modelo segue o padrão SPMD (Single Program Multiple Data).
 
+Foram utilizados 5000 registros de um arquivo de 114MB, para atender o volume de dados suficiente para avaliar o desempenho da paralelização.
+
+O objetivo foi reduzir o tempo de execução, melhorar o desempenho do processamento e avaliar o ganho de desempenho (speedup) e eficiência com múltiplos processos.
+
+Foi utilizado um algoritmo baseado em divisão de dados (data parallelism), execução no modelo SPMD e comunicação entre processos utilizando MPI.
+
+A complexidade do algoritmo é aproximadamente O(n) na versão sequencial e O(n/p) na versão paralela, onde n representa o tamanho dos dados e p o número de processos, considerando um cenário ideal.
 ---
 
 # 2. Ambiente Experimental
 
-Descreva o ambiente em que os experimentos foram realizados.
+Software: Visual Studio Code (VSCode) versão 1.112.0.
 
-## Orientações
+Linguagem: Python 3.14.2.
 
-Informar as características do hardware e software utilizados na execução dos testes.
+Modelo: Paralelismo de dados utilizando MPI (Message Passing Interface).
 
-| Item                        | Descrição |
-| --------------------------- | --------- |
-| Processador                 |           |
-| Número de núcleos           |           |
-| Memória RAM                 |           |
-| Sistema Operacional         |           |
-| Linguagem utilizada         |           |
-| Biblioteca de paralelização |           |
-| Compilador / Versão         |           |
+Hardware: Processador Intel Core i5-12500 com 6 núcleos e 16 GB de memória RAM.
+
+Sistema Operacional: Windows 11.
+
+| Item                        |   Descrição   |
+| --------------------------- |   ---------   |
+| Processador                 |    i5-12500   |
+| Número de núcleos           |       6       |
+| Memória RAM                 |      16gb     |
+| Sistema Operacional         |   Windows 11  |
+| Linguagem utilizada         |     Python    |
+| Biblioteca de paralelização |      MPI      |
+| Compilador / Versão         | VScode 1.112.0|
 
 ---
 
 # 3. Metodologia de Testes
 
-Explique como os experimentos foram conduzidos.
+Os experimentos foram conduzidos com o objetivo de avaliar o desempenho do programa em diferentes níveis de paralelismo. O tempo de execução foi medido a partir do início até a finalização completa do processamento, considerando o tempo total gasto por cada execução do programa.
 
-## Orientações
+Para garantir maior confiabilidade nos resultados, foram realizadas múltiplas execuções para cada configuração de número de processos. A partir dessas execuções, foi calculada a média dos tempos obtidos, reduzindo o impacto de variações ocasionais no desempenho do sistema.
 
-Descrever:
+Os testes foram realizados utilizando uma entrada composta por 5000 registros, correspondentes a um arquivo de aproximadamente 114 MB, o que permitiu avaliar o comportamento do algoritmo diante de um volume significativo de dados.
 
-* Como o tempo de execução foi medido
-* Quantas execuções foram realizadas
-* Se foi utilizada média dos tempos
-* Qual tamanho da entrada foi usado
+Dessa forma, foi possível analisar o ganho de desempenho, o speedup e a eficiência do programa conforme o aumento do número de processos utilizados.
 
 ### Configurações testadas
 
@@ -75,12 +77,9 @@ Os experimentos devem ser realizados nas seguintes configurações:
 
 ### Procedimento experimental
 
-Descrever:
+Para cada configuração de número de processos, foram realizadas duas execuções, com o objetivo de reduzir possíveis variações nos tempos medidos. A média dos tempos foi calculada por meio da soma dos tempos obtidos em cada execução, dividida pelo número total de execuções realizadas.
 
-* Número de execuções para cada configuração
-* Forma de cálculo da média
-* Condições de execução (ex: máquina dedicada, carga do sistema, etc.)
-
+Os experimentos foram conduzidos em condições controladas, sem a execução de outras atividades simultâneas na máquina, buscando minimizar interferências externas e garantir maior estabilidade e confiabilidade nos resultados obtidos.
 ---
 
 # 4. Resultados Experimentais
@@ -94,11 +93,11 @@ Preencha a tabela com os **tempos médios de execução** obtidos.
 
 | Nº Threads/Processos | Tempo de Execução (s) |
 | -------------------- | --------------------- |
-| 1                    |                       |
-| 2                    |                       |
-| 4                    |                       |
-| 8                    |                       |
-| 12                   |                       |
+| 1                    |          33           |
+| 2                    |          26           |
+| 4                    |          17           |
+| 8                    |          12           |
+| 12                   |          10           |
 
 ---
 
@@ -135,11 +134,11 @@ Preencha a tabela abaixo utilizando os tempos medidos.
 
 | Threads/Processos | Tempo (s) | Speedup | Eficiência |
 | ----------------- | --------- | ------- | ---------- |
-| 1                 |           | 1.0     | 1.0        |
-| 2                 |           |         |            |
-| 4                 |           |         |            |
-| 8                 |           |         |            |
-| 12                |           |         |            |
+| 1                 |    33     |   1.0   |    100     |
+| 2                 |    26     |   1.3   |    063     |
+| 4                 |    17     |   1.9   |    049     |
+| 8                 |    12     |   2.8   |    034     |
+| 12                |    10     |   3.3   |    028     |
 
 ---
 
@@ -154,7 +153,7 @@ Construa um gráfico mostrando o **tempo de execução em função do número de
 
 Inserir o gráfico abaixo:
 
-![Gráfico Tempo Execução](graficos/tempo_execucao.png)
+![Gráfico Tempo Execução](img/tempo_execucao.png)
 
 ---
 
@@ -170,7 +169,7 @@ Construa um gráfico mostrando o **speedup obtido**.
 
 Inserir o gráfico abaixo:
 
-![Gráfico Speedup](graficos/speedup.png)
+![Gráfico Speedup](img//speedup.png)
 
 ---
 
@@ -186,41 +185,34 @@ Construa um gráfico mostrando a **eficiência da paralelização**.
 
 Inserir o gráfico abaixo:
 
-![Gráfico Eficiência](graficos/eficiencia.png)
+![Gráfico Eficiência](img/eficiencia.png)
 
 ---
 
 # 10. Análise dos Resultados
 
-Realize uma análise crítica dos resultados obtidos.
+Os resultados obtidos demonstram que o speedup alcançado não foi próximo do ideal, uma vez que, embora tenha havido melhora no desempenho com o aumento do número de processos, os valores ficaram significativamente abaixo do speedup teórico esperado. Por exemplo, com 12 processos, o speedup obtido foi de aproximadamente 3,3.
 
-## Questões a serem respondidas
+A aplicação apresentou escalabilidade parcial, pois o aumento do número de processos resultou em redução do tempo de execução. No entanto, esse ganho não foi proporcional ao número de processos, indicando limitações na eficiência do paralelismo.
 
-* O speedup obtido foi próximo do ideal?
-* A aplicação apresentou escalabilidade?
-* Em qual ponto a eficiência começou a cair?
-* O número de threads ultrapassa o número de núcleos físicos da máquina?
-* Houve overhead de paralelização?
+A eficiência começou a cair a partir do aumento do número de processos, sendo mais perceptível a partir de 4 processos, e diminuindo progressivamente até 28% com 12 processos. Esse comportamento é esperado devido ao aumento do overhead de paralelização, evidenciado pela redução da eficiência com o aumento do número de processos. Esse overhead está relacionado principalmente à comunicação entre processos, sincronização e gerenciamento das tarefas.
 
-Discutir possíveis causas para:
+Entre as possíveis causas para a perda de desempenho, destacam-se o custo de comunicação entre os processos, a sincronização necessária para coordenar a execução e a divisão desigual ou não totalmente eficiente da carga de trabalho. Além disso, podem existir gargalos no algoritmo, especialmente em trechos que não são paralelizáveis.
 
-* perda de desempenho
-* gargalos no algoritmo
-* sincronização entre threads/processos
-* comunicação entre processos
-* contenção de memória ou cache
+A comunicação entre processos utilizando MPI também contribui para o aumento do tempo total, especialmente quando o volume de dados é elevado. Adicionalmente, pode haver contenção de memória e cache, já que múltiplos processos competem pelos mesmos recursos de hardware, impactando negativamente o desempenho.
 
 ---
 
 # 11. Conclusão
 
-Apresente as conclusões do experimento.
+Com base nos resultados obtidos, conclui-se que o uso de paralelismo trouxe ganho de desempenho significativo em relação à execução sequencial, reduzindo o tempo total de processamento.
 
-## Sugestões de pontos a comentar
+Embora o menor tempo de execução tenha sido obtido com 12 processos, o melhor equilíbrio entre desempenho e eficiência foi observado com 4 processos, que apresentou um speedup significativo aliado a uma eficiência ainda relativamente alta, sendo o melhor desempenho prático (custo x benefício). A partir desse ponto, o aumento no número de processos resultou em ganhos menores de desempenho e maior perda de eficiência, devido ao overhead de paralelização.
 
-* O paralelismo trouxe ganho significativo de desempenho?
-* Qual foi o melhor número de threads/processos?
-* O programa escala bem com o aumento do paralelismo?
-* Quais melhorias poderiam ser feitas na implementação?
+O programa apresentou escalabilidade, porém não de forma ideal, já que o aumento do número de processos não resultou em ganhos proporcionais de desempenho. A queda de eficiência evidencia a presença de overhead associado à paralelização.
+
+Como melhorias sugere-se otimizar a divisão de tarefas entre os processos e reduzir a necessidade de comunicação e sincronização, a fim de maximizar a eficiência.
+
+De forma geral, o experimento demonstrou na prática os benefícios e limitações do paralelismo, evidenciando que o aumento do número de processos nem sempre resulta em melhor desempenho, especialmente quando há custos adicionais envolvidos.
 
 ---
